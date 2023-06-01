@@ -72,7 +72,7 @@
                 }
             ],
             "stylesData": "",
-            "templateData": "<app-button>確認</app-button>\n<app-button [flag]=\"'warn'\">確認</app-button>"
+            "templateData": "<p>1.帶有ng-content的元件</p>\n<app-button>確認</app-button>\n<app-button [flag]=\"'warn'\">確認</app-button>\n<hr>\n<p>2.帶有狀態的元件</p>\n<app-fruit-num [name]=\"'蘋果'\"></app-fruit-num>"
         },
         {
             "name": "ButtonComponent",
@@ -285,6 +285,139 @@
             "templateData": "<button [ngClass]=\"'as-button ' + flag\">\n    <ng-content></ng-content>\n</button>\n"
         },
         {
+            "name": "FruitNumComponent",
+            "id": "component-FruitNumComponent-32e5534a442a7e5bc55178f5756c86a4f949264fe082e8823c8aa595f9b9110074fca1c95f8914bb6e34f7c539dd20d23edecf0ccdca51145e2cad7c8b546323",
+            "file": "src/shared/components/fruit-num/fruit-num.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-fruit-num",
+            "styleUrls": [
+                "./fruit-num.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./fruit-num.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [
+                {
+                    "name": "name",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 12,
+                    "type": "string",
+                    "decorators": []
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "num$",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Observable<number>",
+                    "optional": false,
+                    "description": "",
+                    "line": 13
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "decrement",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 28,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "increment",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 24,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 21,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "reset",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 32,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": false,
+            "imports": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, OnInit, Input } from '@angular/core';\nimport { Store, select } from '@ngrx/store';\nimport { Observable } from 'rxjs';\nimport { increment, decrement, reset } from './state/fruit-num.actions';\n\n@Component({\n    selector: 'app-fruit-num',\n    templateUrl: './fruit-num.component.html',\n    styleUrls: ['./fruit-num.component.scss']\n})\nexport class FruitNumComponent implements OnInit {\n    @Input() name: string = '';\n    num$: Observable<number>;\n\n    constructor(\n        private store: Store<{ num: number }>\n    ) {\n        this.num$ = store.pipe(select('num'));\n    }\n\n    ngOnInit(): void {\n    }\n\n    increment() {\n      this.store.dispatch(increment());\n    }\n   \n    decrement() {\n      this.store.dispatch(decrement());\n    }\n   \n    reset() {\n      this.store.dispatch(reset());\n    }\n\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "",
+                    "styleUrl": "./fruit-num.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "store",
+                        "type": "Store<literal type>",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 13,
+                "jsdoctags": [
+                    {
+                        "name": "store",
+                        "type": "Store<literal type>",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "{{ name }}\n<button (click)=\"increment()\">+</button>\n{{ num$ | async }}\n<button (click)=\"decrement()\">-</button>"
+        },
+        {
             "name": "HeaderComponent",
             "id": "component-HeaderComponent-3d494fd89671305c6be07de00e019efdf08f2e36c2169e5fb75a5acdb2841da927e3ef3cbd21cc18f478373a784b1fb90e8b63b9df4b3498a75b652bd9c37b38",
             "file": "src/stories/header.component.ts",
@@ -447,13 +580,13 @@
     "modules": [
         {
             "name": "AppModule",
-            "id": "module-AppModule-ecf5b5d4f521cf1bdbe77b9d427f8c2e0ee3ea69b3d37154d26e0e20c22ea199a631a4ef43bb70345d3efe7bbe28f83fcfaa707c8849eb2228e3d7c97d2e38da",
+            "id": "module-AppModule-85178e48e2623ed37cb822e57a8b4fc6f2aeb407444bc7220a351438408827a937c4e77a4d8594f9a67fa6a79b15075ba3b01ec48ba8a62d2024470452421901",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "src/app/app.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\nimport { BrowserModule } from '@angular/platform-browser';\n\nimport { AppRoutingModule } from './app-routing.module';\nimport { AppComponent } from './app.component';\nimport { ButtonModule } from 'src/shared/components/button/button.module';\n\n@NgModule({\n    declarations: [\n        AppComponent\n    ],\n    imports: [\n        BrowserModule,\n        AppRoutingModule,\n        ButtonModule\n    ],\n    providers: [],\n    bootstrap: [AppComponent]\n})\nexport class AppModule { }\n",
+            "sourceCode": "import { NgModule } from '@angular/core';\nimport { BrowserModule } from '@angular/platform-browser';\n\nimport { AppRoutingModule } from './app-routing.module';\nimport { AppComponent } from './app.component';\nimport { ButtonModule } from 'src/shared/components/button/button.module';\nimport { FruitNumModule } from 'src/shared/components/fruit-num/fruit-num.module';\nimport { StoreModule } from '@ngrx/store';\nimport { fruitNumReducer } from 'src/shared/components/fruit-num/state/fruit-num.reducer';\n\n@NgModule({\n    declarations: [\n        AppComponent\n    ],\n    imports: [\n        BrowserModule,\n        AppRoutingModule,\n        ButtonModule,\n        FruitNumModule,\n        StoreModule.forRoot({ num: fruitNumReducer })\n    ],\n    providers: [],\n    bootstrap: [AppComponent]\n})\nexport class AppModule { }\n",
             "children": [
                 {
                     "type": "providers",
@@ -475,6 +608,9 @@
                         },
                         {
                             "name": "ButtonModule"
+                        },
+                        {
+                            "name": "FruitNumModule"
                         }
                     ]
                 },
@@ -571,10 +707,74 @@
                     "elements": []
                 }
             ]
+        },
+        {
+            "name": "FruitNumModule",
+            "id": "module-FruitNumModule-e98c5bff9444a3bd8ca342025550464c48c20dbb346aa0156545a77e31ca0c1eff67bd6fe82c97952230ac72e23561490cdbc587d03a005ca5dd784e3e697760",
+            "description": "",
+            "deprecationMessage": "",
+            "deprecated": false,
+            "file": "src/shared/components/fruit-num/fruit-num.module.ts",
+            "methods": [],
+            "sourceCode": "import { NgModule } from '@angular/core';\nimport { CommonModule } from '@angular/common';\nimport { FruitNumComponent } from './fruit-num.component';\n\n\n\n@NgModule({\n    declarations: [\n        FruitNumComponent\n    ],\n    imports: [\n        CommonModule\n    ],\n    exports: [\n        FruitNumComponent\n    ]\n})\nexport class FruitNumModule { }\n",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": [
+                        {
+                            "name": "FruitNumComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "imports",
+                    "elements": []
+                },
+                {
+                    "type": "exports",
+                    "elements": [
+                        {
+                            "name": "FruitNumComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
         }
     ],
     "miscellaneous": {
         "variables": [
+            {
+                "name": "_fruitNumReducer",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/shared/components/fruit-num/state/fruit-num.reducer.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createReducer(initialState,\r\n    on(increment, state => state + 1),\r\n    on(decrement, state => state - 1),\r\n    on(reset, state => 0),\r\n)"
+            },
+            {
+                "name": "decrement",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/shared/components/fruit-num/state/fruit-num.actions.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createAction('[Fruit Num] Decrement')"
+            },
             {
                 "name": "environment",
                 "ctype": "miscellaneous",
@@ -596,14 +796,34 @@
                 "defaultValue": "{\n  production: false\n}"
             },
             {
+                "name": "increment",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/shared/components/fruit-num/state/fruit-num.actions.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createAction('[Fruit Num] Increment')"
+            },
+            {
                 "name": "Info",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/shared/components/button/Button.stories.ts",
+                "file": "src/shared/components/button/ASButton.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\r\n  args: {\r\n    flag: 'info',\r\n    // label: 'Button',\r\n  },\r\n}"
+                "defaultValue": "{\r\n    args: {\r\n        flag: 'info',\r\n    },\r\n}"
+            },
+            {
+                "name": "initialState",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/shared/components/fruit-num/state/fruit-num.reducer.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "number",
+                "defaultValue": "0"
             },
             {
                 "name": "Large",
@@ -689,11 +909,21 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/shared/components/button/Button.stories.ts",
+                "file": "src/shared/components/button/ASButton.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<ButtonComponent>",
-                "defaultValue": "{\r\n  title: 'Example/Button',\r\n  component: ButtonComponent,\r\n  tags: ['autodocs'],\r\n  render: (args: ButtonComponent) => ({\r\n    props: {\r\n      backgroundColor: null,\r\n      ...args,\r\n    },\r\n  }),\r\n  argTypes: {\r\n  },\r\n}"
+                "defaultValue": "{\r\n    title: 'Example/ASButton',\r\n    component: ButtonComponent,\r\n    tags: ['autodocs'],\r\n    render: (args: ButtonComponent) => ({\r\n        props: {\r\n            backgroundColor: null,\r\n            ...args,\r\n        },\r\n    }),\r\n    argTypes: {\r\n    },\r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/shared/components/fruit-num/ASFruitNum.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<FruitNumComponent>",
+                "defaultValue": "{\r\n    title: 'Example/ASFruitNum',\r\n    component: FruitNumComponent,\r\n    tags: ['autodocs'],\r\n    render: (args: FruitNumComponent) => ({\r\n        props: {\r\n            backgroundColor: null,\r\n            ...args,\r\n        },\r\n    }),\r\n    argTypes: {\r\n    },\r\n}"
             },
             {
                 "name": "preview",
@@ -714,6 +944,26 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\n  args: {\n    primary: true,\n    label: 'Button',\n  },\n}"
+            },
+            {
+                "name": "Primary",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/shared/components/fruit-num/ASFruitNum.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n    args: {\r\n        name: '蘋果',\r\n    },\r\n}"
+            },
+            {
+                "name": "reset",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/shared/components/fruit-num/state/fruit-num.actions.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createAction('[Fruit Num] Reset')"
             },
             {
                 "name": "Secondary",
@@ -739,14 +989,68 @@
                 "name": "Warn",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/shared/components/button/Button.stories.ts",
+                "file": "src/shared/components/button/ASButton.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\r\n  args: {\r\n    flag: 'warn',\r\n    // label: 'Button',\r\n  },\r\n}"
+                "defaultValue": "{\r\n    args: {\r\n        flag: 'warn',\r\n    },\r\n}"
+            },
+            {
+                "name": "WithDynamicContentAndArgs",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/shared/components/button/ASButton.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "StoryFn",
+                "defaultValue": "(args) => ({\r\n    // template: `<app-button class=\"as-button ${args['flag']}\">${args['content']}</app-button>`, // TODO: 樣式，如果做在全域就沒問題，但做在元件內的樣式檔\r\n    template: `\r\n                <app-button>\r\n                    ${args['content']}\r\n                </app-button>\r\n            `,\r\n})"
             }
         ],
-        "functions": [],
+        "functions": [
+            {
+                "name": "fruitNumReducer",
+                "file": "src/shared/components/fruit-num/state/fruit-num.reducer.ts",
+                "ctype": "miscellaneous",
+                "subtype": "function",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "args": [
+                    {
+                        "name": "state",
+                        "type": "any",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    },
+                    {
+                        "name": "action",
+                        "type": "any",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "jsdoctags": [
+                    {
+                        "name": "state",
+                        "type": "any",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "action",
+                        "type": "any",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            }
+        ],
         "typealiases": [
             {
                 "name": "Story",
@@ -786,7 +1090,18 @@
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
                 "rawtype": "StoryObj<ButtonComponent>",
-                "file": "src/shared/components/button/Button.stories.ts",
+                "file": "src/shared/components/button/ASButton.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 180
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "StoryObj<FruitNumComponent>",
+                "file": "src/shared/components/fruit-num/ASFruitNum.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -795,6 +1110,60 @@
         ],
         "enumerations": [],
         "groupedVariables": {
+            "src/shared/components/fruit-num/state/fruit-num.reducer.ts": [
+                {
+                    "name": "_fruitNumReducer",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/shared/components/fruit-num/state/fruit-num.reducer.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createReducer(initialState,\r\n    on(increment, state => state + 1),\r\n    on(decrement, state => state - 1),\r\n    on(reset, state => 0),\r\n)"
+                },
+                {
+                    "name": "initialState",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/shared/components/fruit-num/state/fruit-num.reducer.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "number",
+                    "defaultValue": "0"
+                }
+            ],
+            "src/shared/components/fruit-num/state/fruit-num.actions.ts": [
+                {
+                    "name": "decrement",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/shared/components/fruit-num/state/fruit-num.actions.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createAction('[Fruit Num] Decrement')"
+                },
+                {
+                    "name": "increment",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/shared/components/fruit-num/state/fruit-num.actions.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createAction('[Fruit Num] Increment')"
+                },
+                {
+                    "name": "reset",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/shared/components/fruit-num/state/fruit-num.actions.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createAction('[Fruit Num] Reset')"
+                }
+            ],
             "src/environments/environment.prod.ts": [
                 {
                     "name": "environment",
@@ -819,36 +1188,46 @@
                     "defaultValue": "{\n  production: false\n}"
                 }
             ],
-            "src/shared/components/button/Button.stories.ts": [
+            "src/shared/components/button/ASButton.stories.ts": [
                 {
                     "name": "Info",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/shared/components/button/Button.stories.ts",
+                    "file": "src/shared/components/button/ASButton.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\r\n  args: {\r\n    flag: 'info',\r\n    // label: 'Button',\r\n  },\r\n}"
+                    "defaultValue": "{\r\n    args: {\r\n        flag: 'info',\r\n    },\r\n}"
                 },
                 {
                     "name": "meta",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/shared/components/button/Button.stories.ts",
+                    "file": "src/shared/components/button/ASButton.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<ButtonComponent>",
-                    "defaultValue": "{\r\n  title: 'Example/Button',\r\n  component: ButtonComponent,\r\n  tags: ['autodocs'],\r\n  render: (args: ButtonComponent) => ({\r\n    props: {\r\n      backgroundColor: null,\r\n      ...args,\r\n    },\r\n  }),\r\n  argTypes: {\r\n  },\r\n}"
+                    "defaultValue": "{\r\n    title: 'Example/ASButton',\r\n    component: ButtonComponent,\r\n    tags: ['autodocs'],\r\n    render: (args: ButtonComponent) => ({\r\n        props: {\r\n            backgroundColor: null,\r\n            ...args,\r\n        },\r\n    }),\r\n    argTypes: {\r\n    },\r\n}"
                 },
                 {
                     "name": "Warn",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/shared/components/button/Button.stories.ts",
+                    "file": "src/shared/components/button/ASButton.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\r\n  args: {\r\n    flag: 'warn',\r\n    // label: 'Button',\r\n  },\r\n}"
+                    "defaultValue": "{\r\n    args: {\r\n        flag: 'warn',\r\n    },\r\n}"
+                },
+                {
+                    "name": "WithDynamicContentAndArgs",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/shared/components/button/ASButton.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "StoryFn",
+                    "defaultValue": "(args) => ({\r\n    // template: `<app-button class=\"as-button ${args['flag']}\">${args['content']}</app-button>`, // TODO: 樣式，如果做在全域就沒問題，但做在元件內的樣式檔\r\n    template: `\r\n                <app-button>\r\n                    ${args['content']}\r\n                </app-button>\r\n            `,\r\n})"
                 }
             ],
             "src/stories/Button.stories.ts": [
@@ -967,6 +1346,28 @@
                     "defaultValue": "{\n  title: 'Example/Page',\n  component: Page,\n  parameters: {\n    // More on how to position stories at: https://storybook.js.org/docs/angular/configure/story-layout\n    layout: 'fullscreen',\n  },\n  decorators: [\n    moduleMetadata({\n      declarations: [Button, Header],\n      imports: [CommonModule],\n    }),\n  ],\n}"
                 }
             ],
+            "src/shared/components/fruit-num/ASFruitNum.stories.ts": [
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/shared/components/fruit-num/ASFruitNum.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<FruitNumComponent>",
+                    "defaultValue": "{\r\n    title: 'Example/ASFruitNum',\r\n    component: FruitNumComponent,\r\n    tags: ['autodocs'],\r\n    render: (args: FruitNumComponent) => ({\r\n        props: {\r\n            backgroundColor: null,\r\n            ...args,\r\n        },\r\n    }),\r\n    argTypes: {\r\n    },\r\n}"
+                },
+                {
+                    "name": "Primary",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/shared/components/fruit-num/ASFruitNum.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n    args: {\r\n        name: '蘋果',\r\n    },\r\n}"
+                }
+            ],
             ".storybook/preview.ts": [
                 {
                     "name": "preview",
@@ -980,7 +1381,53 @@
                 }
             ]
         },
-        "groupedFunctions": {},
+        "groupedFunctions": {
+            "src/shared/components/fruit-num/state/fruit-num.reducer.ts": [
+                {
+                    "name": "fruitNumReducer",
+                    "file": "src/shared/components/fruit-num/state/fruit-num.reducer.ts",
+                    "ctype": "miscellaneous",
+                    "subtype": "function",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "args": [
+                        {
+                            "name": "state",
+                            "type": "any",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        },
+                        {
+                            "name": "action",
+                            "type": "any",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "jsdoctags": [
+                        {
+                            "name": "state",
+                            "type": "any",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "action",
+                            "type": "any",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
         "groupedEnumerations": {},
         "groupedTypeAliases": {
             "src/stories/Button.stories.ts": [
@@ -1022,13 +1469,26 @@
                     "kind": 180
                 }
             ],
-            "src/shared/components/button/Button.stories.ts": [
+            "src/shared/components/button/ASButton.stories.ts": [
                 {
                     "name": "Story",
                     "ctype": "miscellaneous",
                     "subtype": "typealias",
                     "rawtype": "StoryObj<ButtonComponent>",
-                    "file": "src/shared/components/button/Button.stories.ts",
+                    "file": "src/shared/components/button/ASButton.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 180
+                }
+            ],
+            "src/shared/components/fruit-num/ASFruitNum.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<FruitNumComponent>",
+                    "file": "src/shared/components/fruit-num/ASFruitNum.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -1052,7 +1512,7 @@
         ]
     },
     "coverage": {
-        "count": 3,
+        "count": 2,
         "status": "low",
         "files": [
             {
@@ -1095,7 +1555,7 @@
                 "status": "low"
             },
             {
-                "filePath": "src/shared/components/button/Button.stories.ts",
+                "filePath": "src/shared/components/button/ASButton.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
@@ -1105,7 +1565,7 @@
                 "status": "low"
             },
             {
-                "filePath": "src/shared/components/button/Button.stories.ts",
+                "filePath": "src/shared/components/button/ASButton.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
@@ -1115,11 +1575,21 @@
                 "status": "low"
             },
             {
-                "filePath": "src/shared/components/button/Button.stories.ts",
+                "filePath": "src/shared/components/button/ASButton.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
                 "name": "Warn",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/shared/components/button/ASButton.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "WithDynamicContentAndArgs",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
@@ -1131,6 +1601,95 @@
                 "name": "ButtonComponent",
                 "coveragePercent": 0,
                 "coverageCount": "0/4",
+                "status": "low"
+            },
+            {
+                "filePath": "src/shared/components/fruit-num/ASFruitNum.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/shared/components/fruit-num/ASFruitNum.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Primary",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/shared/components/fruit-num/fruit-num.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "FruitNumComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/8",
+                "status": "low"
+            },
+            {
+                "filePath": "src/shared/components/fruit-num/state/fruit-num.actions.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "decrement",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/shared/components/fruit-num/state/fruit-num.actions.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "increment",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/shared/components/fruit-num/state/fruit-num.actions.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "reset",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/shared/components/fruit-num/state/fruit-num.reducer.ts",
+                "type": "function",
+                "linktype": "miscellaneous",
+                "linksubtype": "function",
+                "name": "fruitNumReducer",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/shared/components/fruit-num/state/fruit-num.reducer.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "_fruitNumReducer",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/shared/components/fruit-num/state/fruit-num.reducer.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "initialState",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
                 "status": "low"
             },
             {
