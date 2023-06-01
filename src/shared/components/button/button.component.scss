@@ -1,0 +1,13 @@
+.as-button {
+    font-size: 20px;
+    padding: 0 20px;
+    color: #fff;
+
+    &.info {
+        background-color: #0d81bb;
+    }
+
+    &.warn {
+        background-color: #edbd55;
+    }
+}
